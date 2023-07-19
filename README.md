@@ -9,8 +9,7 @@ Usage
 Installation
 ------------
 
-Requirements
-^^^^^^^^^^^^
+## Requirements
 
 Compatibility
 -------------
