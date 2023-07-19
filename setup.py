@@ -23,7 +23,7 @@ setup(
     author_email="medthehatta@gmail.com",
 
     description="A library for making formal vectors out of python objects",
-    long_description=read("README.rst"),
+    long_description=read("README.md"),
 
     packages=find_packages(exclude=('tests',)),
 
