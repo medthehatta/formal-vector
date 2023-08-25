@@ -17,7 +17,8 @@ class FormalVector:
 
     @classmethod
     def named(cls, name, content=None):
-        if name not in cls._registry:
+        normed = cls._norm_name(name)
+        if normed not in cls._norm_lookup:
             if content is None:
                 content = name
             cls._registry[name] = cls(
@@ -25,8 +26,8 @@ class FormalVector:
                 basis={name: content},
                 name=name,
             )
-            cls._norm_lookup[cls._norm_name(name)] = name
-        return cls._registry[name]
+            cls._norm_lookup[normed] = name
+        return cls._registry[cls._norm_lookup[normed]]
 
     @classmethod
     def _norm_name(cls, name):
@@ -92,21 +93,24 @@ class FormalVector:
         )
 
     @classmethod
-    def parse(cls, s, populate=None, fuzzy=False):
+    def parse(cls, s, populate=None, normalize=None, fuzzy=False):
         populate = populate or (lambda x: None)
+        normalize = normalize or (lambda x: x)
 
         if fuzzy:
 
             def new(x):
+                normed = normalize(x)
                 try:
-                    return cls.lookup(x)
+                    return cls.lookup(normed)
                 except LookupError:
-                    return cls.named(x, content=populate(x))
+                    return cls.named(normed, content=populate(x))
 
         else:
 
             def new(x):
-                return cls.named(x, content=populate(x))
+                normed = normalize(x)
+                return cls.named(normed, content=populate(x))
 
         components = [
             re.search(r"(-?\d+(?:\.\d+)?(?:\s+[*]?\s*|\s*[*]?\s+))?(.*)", y.strip()).groups()
