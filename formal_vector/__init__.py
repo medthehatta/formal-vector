@@ -87,9 +87,10 @@ class FormalVector:
         return sum(x.components.values())
 
     @classmethod
-    def parse_from_list(cls, lst, populate=None, fuzzy=False):
+    def parse_from_list(cls, lst, populate=None, normalize=None, fuzzy=False):
         return cls.sum(
-            cls.parse(x, populate=populate, fuzzy=fuzzy) for x in lst
+            cls.parse(x, populate=populate, normalize=normalize, fuzzy=fuzzy)
+            for x in lst
         )
 
     @classmethod
