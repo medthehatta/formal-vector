@@ -15,7 +15,7 @@ def read(filename):
 
 setup(
     name="formal_vector",
-    version="0.0.1",
+    version="0.1.0",
     url="https://github.com/medthehatta/formal-vector",
     license='MIT',
 

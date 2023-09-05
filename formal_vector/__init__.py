@@ -205,6 +205,22 @@ class FormalVector:
 
         return total
 
+    def pretty_components(self):
+        return "\n".join(
+            f"{amount} {name}" for (name, amount, _) in self.triples()
+        )
+
+    def pretty_basis(self):
+        return "\n".join(
+            f"{amount} {basis}" for (_, amount, basis) in self.triples()
+        )
+
+    def pretty(self):
+        return "\n".join(
+            f"{amount} {name} {basis}"
+            for (name, amount, basis) in self.triples()
+        )
+
     def __getitem__(self, item):
         return self.components.get(item, 0)
 
