@@ -134,12 +134,10 @@ class FormalVector:
 
     @classmethod
     def from_triples(cls, triples, name=None):
-        components = {}
-        basis = {}
-        for (cname, value, basis_value) in triples:
-            components[cname] = value
-            basis[cname] = basis_value
-        return cls(components=components, basis=basis, name=name)
+        return cls.sum(
+            value * cls.named(cname, content=basis_value)
+            for (cname, value, basis_value) in triples
+        )
 
     def __init__(self, components=None, basis=None, name=None):
         self.name = name
